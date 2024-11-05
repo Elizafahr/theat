@@ -1,0 +1,281 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+header .logo {
+    float: left;
+}
+
+header .logo img {
+    width: 100px;
+}
+
+header nav {
+    float: right;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+header .btn {
+    float: right;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main {
+    padding: 40px 0;
+}
+
+.hero {
+    background-color: #fff;
+    padding: 40px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.hero h1 {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero .info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.hero .info div {
+    text-align: center;
+}
+
+.hero .info p {
+    margin-bottom: 5px;
+}
+
+.hero .info p:first-child {
+    font-weight: bold;
+}
+
+.hero .time,
+.hero .place {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.hero .time img,
+.hero .place img {
+    margin-right: 10px;
+}
+
+.hero .time p,
+.hero .place p {
+    font-size: 16px;
+}
+
+.hero .btn.ticket {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    padding: 15px 30px;
+    font-size: 18px;
+}
+
+.description {
+    padding: 40px 0;
+}
+
+.description h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.description p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.team {
+    padding: 40px 0;
+    background-color: #f5f5f5;
+}
+
+.team h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.team .row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.team .col {
+    text-align: center;
+}
+
+.team .col p {
+    margin-bottom: 5px;
+}
+
+.team .col p:first-child {
+    font-weight: bold;
+}
+
+.actors {
+    padding: 40px 0;
+}
+
+.actors h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.schedule {
+    padding: 40px 0;
+    background-color: #f5f5f5;
+}
+
+.schedule .date,
+.schedule .time {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.schedule .date img,
+.schedule .time img {
+    margin-right: 10px;
+}
+
+.schedule .date p,
+.schedule .time p {
+    font-size: 16px;
+}
+
+.tickets {
+    padding: 40px 0;
+}
+
+.tickets .price {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.tickets .price p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tickets .btn {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    padding: 15px 30px;
+    font-size: 18px;
+}
+
+footer {
+    background-color: #fff;
+    padding: 40px 0;
+    border-top: 1px solid #eee;
+}
+
+footer .logo {
+    float: left;
+    margin-right: 40px;
+}
+
+footer .logo img {
+    width: 100px;
+}
+
+footer nav {
+    float: left;
+    margin-right: 40px;
+}
+
+footer nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+footer nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+footer nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+footer .btn {
+    float: left;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer p {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
