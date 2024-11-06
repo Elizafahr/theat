@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -25,9 +24,40 @@
                 </ul>
 
             </nav>
+
+            {{-- <div class="auth-menu">
+                @if (Auth::check())
+                    <span>Здравствуйте, {{ Auth::user()->name }}!</span>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="btn btn-link">
+                        Выйти
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @else
+                    <a href="{{ route('login') }}">Войти</a>
+                    <a href="{{ route('register') }}">Регистрация</a>
+                @endif
+            </div> --}}
+            <div class="auth-menu">
+                @if (Auth::check())
+                    {{-- <span>Здравствуйте, {{ Auth::user()->name }}!</span> --}}
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit">Выйти</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}">Войти</a>
+                    <a href="{{ route('register') }}">Регистрация</a>
+                @endif
+            </div>
+
             <button class="btn">
                 <img src="{{ asset('ticket.svg') }}" alt="Логотип">
 
                 Купить билет</button>
+
         </div>
     </header>

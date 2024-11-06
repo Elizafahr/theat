@@ -22,7 +22,7 @@
             </div>
 
 
-            <button class="btn ticket">Стоимость билетов: 400-600 ₽</button>
+            <button class="btn ticket"> Стоимость билетов: {{ $minPrice }} - {{ $maxPrice }} ₽</button>
         </div>
     </section>
 
@@ -117,11 +117,6 @@
         </div>
     </section>
 
-    <section class="actors">
-        <div class="container">
-            <h2>Действующие исполнители</h2>
-        </div>
-    </section>
 
     <section class="schedule">
         <div class="container">
@@ -136,17 +131,54 @@
         </div>
     </section>
 
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Событие</div>
+
+                    <div class="card-body">
+                        <h2>{{ $event->title }}</h2>
+                        <p>Дата: {{ $event->date }}</p>
+                        <p>Цена от: {{ $minPrice }} до {{ $maxPrice }}</p>
+
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+
+
+                    </div>
+                    @if (Auth::check())
+                        <a href="{{ route('ticketBooking.store', [$event]) }}" class="btn btn-primary mb-3">Купить
+                            билеты</a>
+                    @else
+                        <a href="{{ route('login') }}">Войти</a>
+                        <a href="{{ route('register') }}">Регистрация</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="tickets">
         <div class="container">
-            <div class="price">
-                <p>400 ₽</p>
-                <p>Балкон</p>
+            <h2>Билеты</h2>
+            <div class="ticket-types">
+                @foreach ($event->seats()->where('is_available', true)->get() as $seat)
+                    <div class="price">
+                        <p>{{ $seat->price }} ₽</p>
+                        <p>{{ $seat->section }}</p>
+                    </div>
+                @endforeach
             </div>
-            <div class="price">
-                <p>400 ₽</p>
-                <p>Партер</p>
-            </div>
-            <button class="btn">Купить билет</button>
+            {{-- <a href="{{ route('ticketBooking.store', ['eventId' => $event->id]) }}"
+                        class="btn btn-primary">Купить билет</a> --}}
+            @if (Auth::check())
+                <a href="{{ route('ticketBooking.store', [$event]) }}" class="btn btn-primary mb-3">Купить
+                    билеты</a>
+            @else
+                <a href="{{ route('login') }}">Войти</a>
+                <a href="{{ route('register') }}">Регистрация</a>
+            @endif
         </div>
     </section>
 </main>

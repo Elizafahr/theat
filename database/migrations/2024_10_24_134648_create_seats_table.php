@@ -20,6 +20,8 @@ class CreateSeatsTable extends Migration
             $table->integer('seat_number');
             $table->decimal('price', 10, 2);
             $table->boolean('is_available')->default(true);
+            $table->string('section');
+
             $table->timestamps();
         });
     }

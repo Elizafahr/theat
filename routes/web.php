@@ -1,33 +1,42 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TheatreController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+use App\Http\Controllers\TicketBookingController;
+use App\Http\Controllers\EventController;
 
 
+// Публичные маршруты
 Route::get('/', [Controller::class, 'index'])->name('home');
 Route::get('/events/{id}', 'App\Http\Controllers\EventController@show')->name('event.show');
+Route::get('/theatres', [TheatreController::class, 'index'])->name('theatres');
+Route::get('/theatres/{id}', [TheatreController::class, 'show'])->name('theatre');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-  Route::get('/theatres', [App\Http\Controllers\TheatreController::class, 'index'])->name('theatres');
-Route::get('/theatres/{id}', [App\Http\Controllers\TheatreController::class, 'show'])->name('theatre');
+// Маршруты для покупки билетов
+Route::get('/events/{eventId}/book', [TicketBookingController::class, 'indexBooking'])->name('ticketBooking.index');
+Route::post('/events/{eventId}/book', [TicketBookingController::class, 'ticketBookingstore'])->name('ticketBooking.store');
 
-Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact');
 
-Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Дополнительные маршруты для регистрации
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+// Маршрут для восстановления пароля
+Route::get('/password/reset', [AuthController::class, 'showResetForm'])->name('password.request');
+Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
+ Route::get('/afisha', [EventController::class, 'index'])->name('afisha');

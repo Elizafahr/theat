@@ -1,0 +1,73 @@
+.tickets {
+    margin-top: 40px;
+}
+
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-table th,
+.ticket-table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.ticket-table th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+.ticket-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.ticket-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.ticket-table input[type="checkbox"] {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-table th,
+.ticket-table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.ticket-table th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+.ticket-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.ticket-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.ticket-table input[type="checkbox"] {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}

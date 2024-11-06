@@ -8,13 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Seat extends Model
 {
     use HasFactory;
-    
+
+    // protected $fillable = [
+    //     'event_id',
+    //     'row',
+    //     'seat_number',
+    //     'price',
+    //     'is_available',
+    // ];
+
     protected $fillable = [
-        'event_id',
-        'row',
-        'seat_number',
-        'price',
-        'is_available',
+        'event_id', 'price', 'is_available'
     ];
 
     public function event()

@@ -18,6 +18,8 @@ class CreateEventsTable extends Migration
             $table->foreignId('theatre_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description')->nullable();
+            $table->string('category');
+
             $table->date('start_date');
             $table->time('start_time');
             $table->date('end_date')->nullable();
