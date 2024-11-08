@@ -10,6 +10,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TicketBookingController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 
 // Публичные маршруты
@@ -50,3 +51,15 @@ Route::get('/profile/{id}', [UserController::class, 'indexUser']) ->name('profil
 Route::post('/add-to-favorites/{eventId}', [EventController::class, 'addToFavorites'])->middleware('auth');
 
 Route::post('/remove-from-favorites/{eventId}', [EventController::class, 'removeFromFavorites'])->name('remove-from-favorites');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/news', [AdminController::class, 'newsIndex'])->name('admin.news.index');
+    Route::get('/admin/theatres', [AdminController::class, 'theatreIndex'])->name('admin.theatres.index');
+    Route::get('/admin/bookings', [AdminController::class, 'bookingIndex'])->name('admin.bookings.index');
+
+    // Маршруты для подтверждения и отклонения бронирований
+    Route::post('/admin/approve-booking/{id}', [AdminController::class, 'approveBooking'])->name('approveBooking');
+    Route::post('/admin/reject-booking/{id}', [AdminController::class, 'rejectBooking'])->name('rejectBooking');
+});
+Route::delete('/news/{id}', [AdminController::class, 'destroyNews'])->name('news.destroy');
+Route::delete('/admin/theatres/{id}', [AdminController::class, 'destroyTheatre'])->name('theatres.destroy');

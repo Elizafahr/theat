@@ -131,6 +131,7 @@
     .main__event {
         margin-top: 20px;
     }
+
     .card-body {
         display: flex;
         max-width: 800px;
@@ -145,8 +146,9 @@
         background-color: #eee;
         padding: 20px;
     }
-    .left img{
-        width:100%;
+
+    .left img {
+        width: 100%;
 
     }
 
@@ -241,7 +243,10 @@
 
     <div class="main__events">
         @foreach ($events as $event)
-            <div class="card mb-6">
+            <div class="card mb-6 main__event">
+                <div class="main__event-title" style="display: none;">
+                    <span>{{ $event->category }}</span>
+                </div>
                 <div class="card-body">
                     <div class="left">
                         <img src="{{ asset('images/' . $event->poster) }}" alt="Event Image" class="img-fluid">
@@ -249,14 +254,15 @@
                     <div class="right">
                         <h2 class="card-title">{{ $event->title }}</h2>
                         <p><strong>Место:</strong> {{ $event->location }}</p>
-                     <div class="flex">
-                        <p><strong>Дата:</strong> {{ $event->start_date }}</p>
-                        <p><strong>Время:</strong> {{ $event->start_time }}</p>
-                     </div>
+                        <div class="flex">
+                            <p><strong>Дата:</strong> {{ $event->start_date }}</p>
+                            <p><strong>Время:</strong> {{ $event->start_time }}</p>
+                        </div>
                         <div class="btn-group">
                             <a href="{{ route('event.show', $event->id) }}" class="btn">Подробнее</a>
                             @if (Auth::check())
-                                <a href="{{ route('ticketBooking.store', [$event]) }}" class="btn btn-primary">Купить билет</a>
+                                <a href="{{ route('ticketBooking.store', [$event]) }}" class="btn btn-primary">Купить
+                                    билет</a>
                             @else
                                 <div class="btn-group">
                                     <a href="{{ route('login') }}" class="btn">Войти</a>

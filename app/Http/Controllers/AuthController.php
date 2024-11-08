@@ -43,7 +43,6 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    // Метод для обработки запроса входа
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -55,7 +54,12 @@ class AuthController extends Controller
             return redirect()->back()->withErrors(['email' => 'Неверный адрес электронной почты или пароль']);
         }
 
+        $user = Auth::user();
         $request->session()->regenerate();
+
+        if ($user->role === 'Администратор') {
+            return redirect()->route('admin.dashboard')->with('success', 'Добро пожаловать в админ-панель!');
+        }
 
         return redirect('/');
     }
