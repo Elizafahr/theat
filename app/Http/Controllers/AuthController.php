@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -10,18 +11,20 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    // Показывает форму регистрации
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
+    // Обрабатывает запрос регистрации пользователя
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-         ]);
+        ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -43,6 +46,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    // Обрабатывает запрос входа пользователя
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -63,6 +67,7 @@ class AuthController extends Controller
 
         return redirect('/');
     }
+    // Обрабатывает запрос выхода пользователя
 
     public function logout(Request $request)
     {
@@ -72,5 +77,4 @@ class AuthController extends Controller
 
         return redirect('/');
     }
-
 }

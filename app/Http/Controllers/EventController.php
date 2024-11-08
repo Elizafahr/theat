@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    //определенное мероприятие
     public function show($id)
     {
         $event = Event::find($id);
@@ -20,13 +21,16 @@ class EventController extends Controller
         return view('events.event', compact('event', 'minPrice', 'maxPrice'));
     }
 
+    //Отображает все события
     public function index()
     {
         $events = Event::all();
         $uniqueCategories = $events->pluck('category')->unique()->toArray();
 
-        return view('afisha', compact('events','uniqueCategories'));
+        return view('afisha', compact('events', 'uniqueCategories'));
     }
+
+    //Добавляет событие в избранное
     public function addToFavorites(Request $request)
     {
         $eventId = $request->route('eventId');
@@ -54,6 +58,8 @@ class EventController extends Controller
             return response()->json(['error' => 'Ошибка при добавлении в избранное: ' . $e->getMessage()], 500);
         }
     }
+
+    //Удаляет событие из избранного.
     public function removeFromFavorites(Request $request)
     {
         $eventId = $request->route('eventId');
@@ -68,8 +74,4 @@ class EventController extends Controller
 
         return redirect()->back()->with('message', 'Мероприятие успешно удалено из списка избранных');
     }
-
-
-
-
 }

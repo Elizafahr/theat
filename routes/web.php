@@ -43,23 +43,33 @@ Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->n
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 
-Route::get('/afisha', [EventController::class, 'index'])->name('afisha');
+// афиша
+Route::get('/afisha', [EventController::class, 'index'])->name('afisha'); // Список мероприятий
 
-
+// Профиль пользователя
 Route::get('/profile/{id}', [UserController::class, 'indexUser']) ->name('profile.show');
 
+// Добавление в избранное
 Route::post('/add-to-favorites/{eventId}', [EventController::class, 'addToFavorites'])->middleware('auth');
 
+// Удаление из избранного
 Route::post('/remove-from-favorites/{eventId}', [EventController::class, 'removeFromFavorites'])->name('remove-from-favorites');
+
+// Административные маршруты
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/news', [AdminController::class, 'newsIndex'])->name('admin.news.index');
-    Route::get('/admin/theatres', [AdminController::class, 'theatreIndex'])->name('admin.theatres.index');
-    Route::get('/admin/bookings', [AdminController::class, 'bookingIndex'])->name('admin.bookings.index');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard'); // Панель управления
+    Route::get('/admin/news', [AdminController::class, 'newsIndex'])->name('admin.news.index'); // Список новостей
+    Route::get('/admin/theatres', [AdminController::class, 'theatreIndex'])->name('admin.theatres.index'); // Список театров
+    Route::get('/admin/bookings', [AdminController::class, 'bookingIndex'])->name('admin.bookings.index'); // Список бронирований
 
     // Маршруты для подтверждения и отклонения бронирований
     Route::post('/admin/approve-booking/{id}', [AdminController::class, 'approveBooking'])->name('approveBooking');
     Route::post('/admin/reject-booking/{id}', [AdminController::class, 'rejectBooking'])->name('rejectBooking');
 });
+
+// Удаление новостей
 Route::delete('/news/{id}', [AdminController::class, 'destroyNews'])->name('news.destroy');
+
+// Удаление театров
 Route::delete('/admin/theatres/{id}', [AdminController::class, 'destroyTheatre'])->name('theatres.destroy');
+
