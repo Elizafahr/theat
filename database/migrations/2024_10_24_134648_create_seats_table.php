@@ -24,7 +24,26 @@ class CreateSeatsTable extends Migration
 
             $table->timestamps();
         });
+
+
     }
+    // public function up()
+    // {
+    //     Schema::create('seats', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->unsignedBigInteger('event_id');
+    //         $table->integer('row');
+    //         $table->integer('seat_number');
+    //         $table->decimal('price', 10, 2);
+    //         $table->boolean('is_available')->default(true);
+    //         $table->timestamps();
+
+    //         $table->foreign('event_id')
+    //               ->references('id')
+    //               ->on('events')
+    //               ->onDelete('cascade');
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

@@ -18,12 +18,12 @@ class Controller extends BaseController
     {
         // Получение данных из базы данных
         $event = Event::inRandomOrder()->first(); // Выбираем рандомное событие
-        $newsItems = News::orderBy('published_date', 'desc')->limit(2)->get();
+        $newsItems = News::orderBy('published_date', 'desc')->limit(4)->get();
         $allEvents = Event::all(); // Получаем все события
 
         return view('home', [
             'event' => $event, // Передача данных о текущем событии
-            'news' => $newsItems, // Передача данных о последних новостях 
+            'news' => $newsItems, // Передача данных о последних новостях
             'allEvents' => $allEvents
         ]);
     }

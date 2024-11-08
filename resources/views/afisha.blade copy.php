@@ -131,70 +131,6 @@
     .main__event {
         margin-top: 20px;
     }
-    .card-body {
-        display: flex;
-        max-width: 800px;
-        margin-bottom: 30px;
-        border: none;
-        border-radius: 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .left {
-        width: 40%;
-        background-color: #eee;
-        padding: 20px;
-    }
-    .left img{
-        width:100%;
-
-    }
-
-    .right {
-        width: 60%;
-        padding: 20px;
-    }
-
-    .card-body {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .card-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 15px;
-    }
-
-    .btn-group {
-        display: flex;
-        gap: 10px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #000;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-        background-color: #333;
-    }
-
-    .ticket {
-        background-color: #f8f9fa;
-        padding: 10px 20px;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        margin-top: 15px;
-    }
 </style>
 
 <div class="container">
@@ -202,11 +138,18 @@
         <div class="main__filter-item">
             <button class="main__filter-button active">Все</button>
         </div>
-        @foreach ($uniqueCategories as $category)
-            <div class="main__filter-item">
-                <button class="main__filter-button">{{ $category }}</button>
-            </div>
-        @endforeach
+        <div class="main__filter-item">
+            <button class="main__filter-button">Спектакли</button>
+        </div>
+        <div class="main__filter-item">
+            <button class="main__filter-button">Детские сказки</button>
+        </div>
+        <div class="main__filter-item">
+            <button class="main__filter-button">Концерты</button>
+        </div>
+        <div class="main__filter-item">
+            <button class="main__filter-button">Пьессы</button>
+        </div>
     </div>
     <div class="filter">
         <div class="filter-price">
@@ -236,70 +179,76 @@
             </select>
         </div>
     </div>
-
+    <form action="{{ route('events.filterByPrice') }}" method="GET">
+        <input type="number" name="min_price" placeholder="Минимальная цена">
+        <input type="number" name="max_price" placeholder="Максимальная цена">
+        <button type="submit">Фильтровать</button>
+    </form>
 
 
     <div class="main__events">
         @foreach ($events as $event)
-            <div class="card mb-6">
-                <div class="card-body">
-                    <div class="left">
-                        <img src="{{ asset('images/' . $event->poster) }}" alt="Event Image" class="img-fluid">
-                    </div>
+            <div class="main__event">
+                <div class="main__event-title" style="display: none;">
+                    <span>{{ $event->category }}</span>
+                </div>
+                <div class="card">
+                    <div class="left"></div>
                     <div class="right">
-                        <h2 class="card-title">{{ $event->title }}</h2>
-                        <p><strong>Место:</strong> {{ $event->location }}</p>
-                     <div class="flex">
-                        <p><strong>Дата:</strong> {{ $event->start_date }}</p>
-                        <p><strong>Время:</strong> {{ $event->start_time }}</p>
-                     </div>
+                        <div class="info">
+                            <h2 class="title">{{ $event->title }}</h2>
+                            <p>{{ $event->location }}</p>
+                            <p>{{ $event->date }}</p>
+                            <p>{{ $event->time }}</p>
+                            <div class="ticket">
+                                <p>Стоимость билетов: от {{ $event->seats->min('price') }}₽</p>
+                            </div>
+                            <div class="age">
+                                <p>{{ $event->age_limit }}</p>
+                            </div>
+                        </div>
                         <div class="btn-group">
                             <a href="{{ route('event.show', $event->id) }}" class="btn">Подробнее</a>
                             @if (Auth::check())
-                                <a href="{{ route('ticketBooking.store', [$event]) }}" class="btn btn-primary">Купить билет</a>
+                                <a href="{{ route('ticketBooking.store', [$event]) }}"
+                                    class="btn btn-primary mb-3"> Купить билет</a>
                             @else
-                                <div class="btn-group">
-                                    <a href="{{ route('login') }}" class="btn">Войти</a>
-                                    <a href="{{ route('register') }}" class="btn">Регистрация</a>
-                                </div>
+                                <a href="{{ route('login') }}">Войти</a>
+                                <a href="{{ route('register') }}">Регистрация</a>
                             @endif
+
+                            {{-- <button class="btn">Купить билет</button> --}}
                         </div>
-                        <div class="ticket">
-                            <p>Стоимость билетов: от {{ $event->seats->min('price') }}₽</p>
-                        </div>
-                        {{-- <div class="age bg-light text-center p-2 rounded-circle">
-                            <p>{{ $event->age_limit }}</p>
-                        </div> --}}
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
-</div>
+  </div>
 
-<script>
-    const filterButtons = document.querySelectorAll('.main__filter-button');
-    const events = document.querySelectorAll('.main__event');
+    <script>
+        const filterButtons = document.querySelectorAll('.main__filter-button');
+        const events = document.querySelectorAll('.main__event');
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
 
-            events.forEach(event => {
-                let isVisible = true;
-
-                if (button.classList.contains('active') && button.textContent !== 'Все') {
-                    const category = event.querySelector('.main__event-title span:first-child')
-                        .textContent;
-                    isVisible = category === button.textContent;
-                }
-
-                event.style.display = isVisible ? 'block' : 'none';
+                events.forEach(event => {
+                    if (button.classList.contains('active') && button.textContent === 'Все') {
+                        event.style.display = 'block';
+                    } else if (button.classList.contains('active') && event.querySelector(
+                            '.main__event-title span:first-child').textContent === button
+                        .textContent) {
+                        event.style.display = 'block';
+                    } else {
+                        event.style.display = 'none';
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>

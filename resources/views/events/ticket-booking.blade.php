@@ -1,94 +1,79 @@
+
+@include('blocks.header')
+@push('styles')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+@endpush
+
+<link href="{{ asset('css/ticket-styles.css') }}" rel="stylesheet">
+
+<section class="tickets">
+    <div class="container">
+        <h2>Бронирование билетов</h2>
+
+        <form method="POST" action="{{ route('ticketBooking.store', ['eventId' => $event->id]) }}">
+            @csrf
+
+            <input type="hidden" name="event_id" value="{{ $event->id }}">
+
+            <table class="ticket-table">
+                <thead>
+                    <tr>
+                        <th>Зона</th>
+                        <th>Цена</th>
+                        <th>Ряд</th>
+                        <th>Место</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($availableSeats as $seat)
+                        <tr>
+                            <td>{{ $seat->section }}</td>
+                            <td>{{ $seat->price }} ₽</td>
+                            <td>{{ $seat->row }}</td>
+                            <td>{{ $seat->seat_number }}</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="seats[]" value="{{ $seat->id }}" />
+                                    Бронировать место
+                                </label>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <button type="submit" class="btn btn-primary">Продолжить бронирование</button>
+        </form>
+    </div>
+</section>
+
+@if(session('success'))
+    <div id="successToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+        <div class="toast-header">
+            <strong class="me-auto">Успешное бронирование!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+        </div>
+        <div class="toast-body">
+            Ваш заказ успешно подтвержден.
+        </div>
+    </div>
+@endif
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+        var toastList = toastElList.map(function(toastEl) {
+            return new bootstrap.Toast(toastEl);
+        });
+    });
+</script>
+
+{{--
 @include('blocks.header')
 
 <link href="{{ asset('css/ticket-styles.css') }}" rel="stylesheet">
 
-{{-- @include('blocks.header')
-<link rel="stylesheet" href="{{ asset('css/event.css') }}">
-
-<main>
-    <section class="hero">
-        <div class="container">
-            <h1>{{ $event->title }}</h1>
-            <div class="info">
-                <div>
-                    <p>Автор:</p>
-                    <p><span>{{ $event->theatre->name }}</span></p>
-                </div>
-
-                <div>
-                    <p>{{ $event->start_date }}</p>
-                    <p> {{ $event->start_time }}</p>
-                </div>
-                <div>
-                    <p>Место проведения:</p>
-                    <p><span>{{ $event->theatre->address }}</span></p>
-                </div>
-            </div>
-
-
-            <button class="btn ticket">Стоимость билетов: 400-600 ₽</button>
-        </div>
-    </section>
-
-    <section class="description">
-        <div class="container">
-            <h2>Описание спектакля</h2>
-            <p>{{ $event->description }}</p>
-        </div>
-    </section>
-
-    <section class="team">
-        <!-- Содержимое команды -->
-    </section>
-
-    <section class="actors">
-        <div class="container">
-            <h2>Действующие исполнители</h2>
-        </div>
-    </section>
-
-    <section class="schedule">
-        <div class="container">
-            <div class="date">
-                <img src="calendar.png" alt="Календарь">
-                <p>{{ $event->start_date }} {{ $event->start_time }}</p>
-            </div>
-            <div class="time">
-                <img src="clock.png" alt="Часы">
-                <p>{{ $event->duration }} с {{ $event->interval_count }} антрактами</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="tickets">
-        <div class="container">
-            <h2>Выберите количество билетов</h2>
-            <form method="POST" action="{{ route('ticket.booking.store') }}">
-                @csrf
-                <input type="hidden" name="event_id" value="{{ $event->id }}">
-                <div class="price">
-                    <p>400 ₽</p>
-                    <p>Балкон</p>
-                </div>
-                <div class="price">
-                    <p>400 ₽</p>
-                    <p>Партер</p>
-                </div>
-                <select name="ticket_type" id="ticket-type">
-                    <option value="">Выберите тип билета</option>
-                    @foreach ($tickets as $ticket)
-                        <option value="{{ $ticket->id }}">{{ $ticket->type }}</option>
-                    @endforeach
-                </select>
-                <input type="number" name="quantity" min="1" max="{{ $totalTickets }}" placeholder="Количество">
-                <button type="submit" class="btn">Купить билеты</button>
-            </form>
-        </div>
-    </section>
-</main>
-
-@include('blocks.footer')
- --}}
 
 
  <section class="tickets">
@@ -131,7 +116,7 @@
             <button type="submit" class="btn btn-primary">Продолжить бронирование</button>
         </form>
     </div>
-</section>
+</section> --}}
 
 {{--
  <h2>1 вариант</h2>

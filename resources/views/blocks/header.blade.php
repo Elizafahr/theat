@@ -17,34 +17,20 @@
             <nav>
                 <ul>
                     <li><a href="{{ route('home') }}">Главная</a></li>
-                    {{-- <li><a href="{{ route('afisha') }}">Афиша</a></li> --}}
+                    <li><a href="{{ route('afisha') }}">Афиша</a></li>
                     <li><a href="{{ route('theatres') }}">Театр</a></li>
-                    <li><a href="{{ route('contact') }}">Контакты</a></li>
-                    <li><a href="{{ route('about') }}">О нас</a></li>
-                </ul>
+                    {{-- <li><a href="{{ route('contact') }}">Контакты</a></li> --}}
+                 </ul>
 
             </nav>
 
-            {{-- <div class="auth-menu">
-                @if (Auth::check())
-                    <span>Здравствуйте, {{ Auth::user()->name }}!</span>
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                        class="btn btn-link">
-                        Выйти
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                @else
-                    <a href="{{ route('login') }}">Войти</a>
-                    <a href="{{ route('register') }}">Регистрация</a>
-                @endif
-            </div> --}}
+
             <div class="auth-menu">
                 @if (Auth::check())
-                    {{-- <span>Здравствуйте, {{ Auth::user()->name }}!</span> --}}
-                    <form action="{{ route('logout') }}" method="POST">
+                <a href="{{ route('profile.show', ['id' => auth()->id()]) }}">Профиль</a>
+
+
+                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit">Выйти</button>
                     </form>
@@ -54,10 +40,10 @@
                 @endif
             </div>
 
-            <button class="btn">
+            {{-- <button class="btn">
                 <img src="{{ asset('ticket.svg') }}" alt="Логотип">
 
-                Купить билет</button>
+                Купить билет</button> --}}
 
         </div>
     </header>

@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TicketBookingController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 
 
 // Публичные маршруты
@@ -20,8 +21,10 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 // Маршруты для покупки билетов
+
 Route::get('/events/{eventId}/book', [TicketBookingController::class, 'indexBooking'])->name('ticketBooking.index');
-Route::post('/events/{eventId}/book', [TicketBookingController::class, 'ticketBookingstore'])->name('ticketBooking.store');
+Route::post('/events/{eventId}/book', [TicketBookingController::class, 'store'])->name('ticketBooking.store');
+Route::get('/events/{eventId}/cancel-booking/{bookingId}', [TicketBookingController::class, 'cancelBooking'])->name('ticketBooking.cancel');
 
 
 
@@ -39,4 +42,11 @@ Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->n
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 
- Route::get('/afisha', [EventController::class, 'index'])->name('afisha');
+Route::get('/afisha', [EventController::class, 'index'])->name('afisha');
+
+
+Route::get('/profile/{id}', [UserController::class, 'indexUser']) ->name('profile.show');
+
+Route::post('/add-to-favorites/{eventId}', [EventController::class, 'addToFavorites'])->middleware('auth');
+
+Route::post('/remove-from-favorites/{eventId}', [EventController::class, 'removeFromFavorites'])->name('remove-from-favorites');
