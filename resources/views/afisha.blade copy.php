@@ -32,7 +32,7 @@
             </select>
         </div>
         <div class="filter-theatre">
-            <select name="city" id="">
+            <select name="theatre" id="">
                 <option value="none">Не выбрано</option>
                 <option value="first">Театр 1</option>
                 <option value="sec">Театр 2</option>
@@ -40,7 +40,7 @@
         </div>
         <div class="filter-date">
 
-            <select>
+            <select name="date" id="">
 
                 <option value="Июнь">Июнь</option>
                 <option value="Июль">Июль</option>

@@ -18,6 +18,15 @@
         height: 24px;
         width: 24px;
     }
+
+    .ticket{
+        width: max-content;
+        padding: 10px 20px;
+        background-color: black;
+        border: 1px dotted gray;
+        margin: auto;
+        color: white
+    }
 </style>
 <main>
 
@@ -42,7 +51,7 @@
             </div>
 
 
-            <button class="btn ticket"> Стоимость билетов: {{ $minPrice }} - {{ $maxPrice }} ₽</button>
+            <div class="  ticket">  Стоимость билетов: {{ $minPrice }} - {{ $maxPrice }} ₽</div>
         </div>
     </section>
 
@@ -58,7 +67,7 @@
         </div>
     </section>
 
-    <section class="team">
+    {{-- <section class="team">
         <div class="container">
             <h2>Постановочная группа</h2>
             <div class="row">
@@ -141,7 +150,7 @@
             </div>
         </div>
 
-    </section>
+    </section> --}}
 
 
 
@@ -151,24 +160,29 @@
     <section class="tickets">
         <div class="container">
             <h2>Билеты</h2>
-            <div class="ticket-types">
+
+            <div class="row row-cols-2 row-cols-md-4 g-4">
                 @foreach ($event->seats()->where('is_available', true)->get() as $seat)
-                    <div class="price">
-                        <p>{{ $seat->price }} ₽</p>
-                        <p>{{ $seat->section }}</p>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $seat->price }} ₽</h5>
+                                <p class="card-text">Сектор: {{ $seat->section }}</p>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
 
             @if (Auth::check())
-                <a href="{{ route('ticketBooking.store', [$event]) }}" class="btn btn-primary mb-3">Купить
-                    билеты</a>
+                <a href="{{ route('ticketBooking.store', [$event]) }}" class="btn btn-primary mb-3">Купить билеты</a>
             @else
                 <a href="{{ route('login') }}">Войти</a>
                 <a href="{{ route('register') }}">Регистрация</a>
             @endif
         </div>
     </section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"

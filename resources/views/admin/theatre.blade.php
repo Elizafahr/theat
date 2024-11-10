@@ -147,6 +147,8 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Удалить</button>
                     </form>
+                    <a href="{{ route('theatres.edit', $theatre->id) }}" class="btn btn-primary">Редактировать</a>
+
                 </td>
             </tr>
         @endforeach

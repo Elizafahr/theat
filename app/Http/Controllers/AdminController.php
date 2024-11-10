@@ -12,7 +12,6 @@ class AdminController extends Controller
     // Выводит список новостей на главную страницу админ-панели
     public function index()
     {
-
         $news = News::latest()->paginate(10);
         $theatres = Theatre::all();
         $bookings = Booking::where('status', 'Ожидание')->get();
@@ -73,5 +72,140 @@ class AdminController extends Controller
         $theatre->delete();
 
         return redirect()->route('admin.dashboard')->with('success', 'Театр был успешно удален.');
+    }
+
+    // Создает новую новость
+    public function createNews()
+    {
+        return view('admin.create-news');
+    }
+
+    // Сохраняет новую новость
+    public function storeNews(Request $request)
+    {
+        $validatedData = $request->validate([
+
+
+        ]);
+
+        $news = News::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'image' => $request->image,
+            'published_date' => now(),
+            'user_id' => auth()->id(),
+        ]);
+
+
+        return redirect()->route('admin.dashboard')->with('success', 'Новость успешно добавлена');
+    }
+
+
+    public function editNews($id)
+{
+    $news = News::findOrFail($id);
+    return view('admin.edit-news', compact('news'));
+}
+
+
+public function updateNews(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string|max:1000',
+     ]);
+
+    $news = News::findOrFail($id);
+    $news->update($validatedData);
+
+    return redirect()->route('admin.dashboard')->with('success', 'Новость успешно обновлена');
+}
+
+    // Создает новый театр
+    public function createTheatre()
+    {
+        return view('admin.create-theatre');
+    }
+
+    // Сохраняет новый театр
+    public function storeTheatre(Request $request)
+    {
+        $data = $request->only(['name', 'address', 'phone', 'website', 'description']);
+
+        if (empty($data)) {
+            return redirect()->back()->withErrors(['Все поля обязательны'])->withInput();
+        }
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'website' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'city' => 'nullable|string|max:50',
+        ]);
+
+        Theatre::create($validatedData);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Театр успешно добавлен');
+    }
+
+    // Отображает форму редактирования театра
+    public function editTheatre($id)
+    {
+        $theatre = Theatre::findOrFail($id);
+        return view('admin.edit-theatre', compact('theatre'));
+    }
+
+    // Обновляет существующий театр
+    public function updateTheatre(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+         ]);
+
+        $theatre = Theatre::findOrFail($id);
+        $theatre->update($validatedData);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Театр успешно обновлен');
+    }
+
+
+    // Создает новое бронирование
+    public function createBooking()
+    {
+        return view('admin.create-booking');
+    }
+
+    // Сохраняет новое бронирование
+    public function storeBooking(Request $request)
+    {
+        // Здесь нужно добавить логику сохранения нового бронирования
+        // Например:
+        // $validatedData = $request->validate([
+        //     'event_id' => 'required|exists:events,id',
+        //     'date' => 'required|date',
+        // ]);
+        //
+        // Booking::create($validatedData);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Бронирование успешно добавлено');
+    }
+
+    // Отображает форму редактирования бронирования
+    public function editBooking($id)
+    {
+        $booking = Booking::findOrFail($id);
+        return view('admin.edit-booking', compact('booking'));
+    }
+
+    // Обновляет существующее бронирование
+    public function updateBooking(Request $request, $id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->update($request->all());
+
+        return redirect()->route('admin.dashboard')->with('success', 'Бронирование успешно обновлено');
     }
 }

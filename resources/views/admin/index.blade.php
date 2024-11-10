@@ -112,40 +112,41 @@
         @endif
 
         <h1>Админ-панель</h1>
-        <div class="col-md-12 mb-4 container">
-            <div class="card">
-                <div class="card-header">Новости</div>
-                <div class="card-body">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Заголовок</th>
-                                <th>Дата публикации</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($news as $item)
-                                <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>{{ $item->published_date }}</td>
-                                    <td>
-                                        <form method="POST" action="{{ route('news.destroy', $item->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Удалить</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">Новости</div>
+                    <div class="card-body">
+                        <a href="{{ route('admin.news.index') }}" class="btn btn-primary w-100">Список новостей</a>
+                        <a href="{{ route('news.create') }}" class="btn btn-secondary w-100 mt-2">Добавить новость</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">Театры</div>
+                    <div class="card-body">
+                        <a href="{{ route('admin.theatres.index') }}" class="btn btn-primary w-100">Список театров</a>
+                        <a href="{{ route('theatres.create') }}" class="btn btn-secondary w-100 mt-2">Добавить
+                            театр</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">Бронирования</div>
+                    <div class="card-body">
+                        <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary w-100">Список
+                            бронирований</a>
+                        <a href="{{ route('bookings.create') }}" class="btn btn-secondary w-100 mt-2">Добавить
+                            бронирование</a>
+                    </div>
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12 mb-4 container">
                 <div class="card">
@@ -172,6 +173,8 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Удалить</button>
                                             </form>
+                                            <a href="{{ route('news.edit', $item->id) }}" class="btn btn-primary">Редактировать</a>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -207,6 +210,7 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Удалить</button>
                                             </form>
+                                            <a href="{{ route('theatres.edit', $theatre->id) }}" class="btn btn-primary">Редактировать</a>
 
                                         </td>
                                     </tr>

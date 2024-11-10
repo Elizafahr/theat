@@ -29,7 +29,7 @@
              <div class="carousel-inner">
                  @foreach ($allEvents as $index => $event)
                      <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                         <img src="{{ asset($event->poster) }}" class="d-block w-100" alt="...">
+                         <img src="{{ asset('/images/1 screen.png') }}" class="d-block w-100" alt="...">
                          <div class="container carousel-caption d-none d-md-block">
                              <div class="row align-items-center">
                                  <div class="col-md-10">
@@ -89,8 +89,8 @@
              <div class="recommendations-wrapper">
                  <div class="slider">
                      @foreach ($allEvents as $event)
-                         <div class="recommendation">
-                             <div class="time">
+                     <div class="recommendation" style="max-width: 300px; background-image: url('{{ asset('images/event.png') }}');">
+                        <div class="time">
                                  <div class="col">
                                      <p>{{ $event->start_date }}</p>
                                      <p> {{ $event->start_time }}</p>

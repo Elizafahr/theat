@@ -1,9 +1,10 @@
- @include('blocks.header')
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@include('blocks.header')
  <link rel="stylesheet" href="{{ asset('css/theatre.css') }}">
 
 
 <main>
-    <section class="hero">
+    <section class="hero" style="background-image: url('{{ asset('images/event.png') }}'); color: white;">
         <div class=" ">
             <h1>{{ $theatre->name }}</h1>
             <p>{{ $theatre->description }}</p>
@@ -48,7 +49,7 @@
         <div class="recommendations-wrapper">
             <div class="slider">
                 @foreach ($events as $event)
-                    <div class="recommendation event">
+                    <div class="recommendation event" style="background-image: url('{{ asset('images/event.png') }}');">
                         <div class="time">
                             <div class="col">
                                 <p>{{ $event->start_date }}</p>

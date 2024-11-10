@@ -18,7 +18,7 @@
                 <ul>
                     <li><a href="{{ route('home') }}">Главная</a></li>
                     <li><a href="{{ route('afisha') }}">Афиша</a></li>
-                    <li><a href="{{ route('theatres') }}">Театр</a></li>
+                    <li><a href="{{ route('theatres') }}">Театры</a></li>
                     {{-- <li><a href="{{ route('contact') }}">Контакты</a></li> --}}
                  </ul>
 

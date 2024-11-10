@@ -10,12 +10,15 @@ class Theatre extends Model
 
 
     protected $fillable = [
-        'title',
+                'name',
+'title',
         'content',
         'image',
         'published_date',
         'user_id',
         'theatre_id',
+        'address',
+        'city'
     ];
 
     public function user()
@@ -26,5 +29,11 @@ class Theatre extends Model
     public function theatre()
     {
         return $this->belongsTo(Theatre::class)->nullable();
+
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
     }
 }

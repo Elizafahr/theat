@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Seat;
 use App\Models\Favorite;
+use App\Models\Theatre;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -21,14 +22,86 @@ class EventController extends Controller
         return view('events.event', compact('event', 'minPrice', 'maxPrice'));
     }
 
-    //Отображает все события
-    public function index()
+    public function indexEvent(Request $request)
     {
-        $events = Event::all();
-        $uniqueCategories = $events->pluck('category')->unique()->toArray();
 
-        return view('afisha', compact('events', 'uniqueCategories'));
+
+        // Получаем все события
+        $events = Event::with('theatre', 'seats')->get();
+        $minPrice = $request->has('min_price');
+        $maxPrice = $request->has('maxPrice');
+        // Фильтрация по городу и театру
+        $cityId = $request->input('city_id', null);
+        $theatreId = $request->input('theatre_id', null);
+
+        if ($cityId) {
+            $events = $events->filter(function($event) use ($cityId) {
+                return $event->theatre->city === $cityId;
+            });
+        }
+
+        if ($theatreId) {
+            $events = $events->filter(function($event) use ($theatreId) {
+                return $event->theatre->name === $theatreId;
+            });
+        }
+
+        // Фильтрация по категории
+        $category = $request->input('category', 'all');
+        if ($category !== 'all') {
+            $events = $events->filter(function($event) use ($category) {
+                return $event->category === $category;
+            });
+        }
+
+        // Фильтрация по цене
+        if ($request->has('min_price')) {
+            $minPrice = $request->min_price;
+            $events = $events->filter(function($event) use ($request) {
+                return $event->seats->min('price') >= $request->min_price;
+            });
+        }
+          if ($request->has('max_price')) {
+                        $max_price = $request->max_price;
+$events = $events->filter(function($event) use ($request) {
+                return $event->seats->min('price') <= $request->max_price;
+            });
+
+        }
+
+         // Если цена не указана, используем максимальную цену для верхней границы и минимальную для нижней границы
+         if (!$request->has('min_price') && !$request->has('max_price')) {
+            $minPrice = $events->min('seats.price');
+            $maxPrice = $events->max('seats.price');
+        } elseif (!$request->has('min_price')) {
+            $minPrice = $events->min('seats.price');
+        } elseif (!$request->has('max_price')) {
+            $maxPrice = $events->max('seats.price');
+        }
+
+
+
+
+        // Группировка событий по городам
+        $uniqueCities = $events->groupBy('theatre.city')->map(function($group) {
+            return $group->first()->theatre->city;
+        })->toArray();
+
+        // Группировка событий по театрам
+        $uniqueTheatres = $events->groupBy('theatre.name')->map(function($group) {
+            return $group->first()->theatre->name;
+        })->toArray();
+
+        // Группировка событий по категориям
+        $uniqueCategories = $events->groupBy('category')->map(function($group) {
+            return $group->first()->category;
+        })->toArray();
+
+        return view('afisha', compact('events', 'uniqueCities', 'uniqueTheatres', 'uniqueCategories', 'minPrice', 'maxPrice', 'cityId', 'category', 'theatreId'));
     }
+
+
+
 
     //Добавляет событие в избранное
     public function addToFavorites(Request $request)

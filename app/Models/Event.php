@@ -10,15 +10,17 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'theatre_id',
         'title',
         'description',
         'start_date',
         'start_time',
         'end_date',
         'end_time',
-        'poster',
+        'price_min',
+        'price_max',
+        'theatre_id'
     ];
+
 
     public function theatre()
     {
@@ -43,5 +45,15 @@ class Event extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function getCityAttribute($value)
+    {
+        return $this->theatre->city;
+    }
+
+    public function getTheatreNameAttribute()
+    {
+        return $this->theatre->name;
     }
 }

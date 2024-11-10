@@ -15,12 +15,47 @@
                 </div>
             </div>
 
-            <h2 class="mt-4 mb-3">Список бронирований:</h2>
-            <ul class="list-group">
-                @foreach ($bookings as $booking)
-                <li class="list-group-item">{{ $booking->event->title }} -{{ $booking->id }} - {{ $booking->booking_date }}</li>
-                @endforeach
-            </ul>
+                 <div class="card mt-5">
+                    <div class="card-header bg-primary text-white">
+                         Список бронирований
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Название мероприятия</th>
+                                    <th>Дата бронирования</th>
+                                    <th>Статус</th>
+                                    <th>Цена</th>
+                                    <th>Количество билетов</th>
+                                    <th>Действия</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($bookings as $booking)
+                                    <tr>
+                                        <td>{{ $booking->event->title }}</td>
+                                        <td>{{ $booking->booking_date }}</td>
+                                        <td>{{ $booking->status }}</td>
+                                        <td>{{ $booking->total_price }}</td>
+                                        <td>({{ count($booking->tickets) }})</td>
+                                        <td>
+                                            <form action="{{ route('ticketBooking.cancel', [$booking->event_id, $booking->id]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="submit" class="btn btn-sm btn-danger">Отменить бронирование</button>
+                                            </form>
+
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
 
             <h2 class="mt-4 mb-3">Избранные мероприятия:</h2>
             <ul class="list-group">

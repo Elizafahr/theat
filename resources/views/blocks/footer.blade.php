@@ -4,8 +4,7 @@
             <a href="#">Главная</a>
             <a href="#">Афиша</a>
             <a href="#">Театры</a>
-            <a href="#">Контакты</a>
-            <a href="#">О нас</a>
+
         </div>
         <div class="col">
             <div class="logo">

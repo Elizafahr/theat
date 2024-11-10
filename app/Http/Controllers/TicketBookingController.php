@@ -59,8 +59,8 @@ class TicketBookingController  extends Controller
     {
         $booking = Booking::findOrFail($bookingId);
 
-        if ($booking->event_id !== $eventId) {
-            abort(403, 'У вас нет разрешения на отмену этой бронирования.');
+        if ($booking->event_id != $eventId) {
+            abort(403, $eventId .$booking->event_id. $bookingId);
         }
 
         $booking->delete();

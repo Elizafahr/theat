@@ -12,7 +12,7 @@
              <div class="th-item-text">
                  <p>Адрес: {{ $theatre->address ?? 'Не указан' }}</p>
                  <h2>{{ $theatre->name }}</h2>
-                 <a href="{{ route('theatre', $theatre->id) }}" class="button">Подробнее</a>
+                 <a href="{{ route('theatre', $theatre->id) }}" class="btn">Подробнее</a>
                 </div>
          </div>
      @endforeach
