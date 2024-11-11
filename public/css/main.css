@@ -35,7 +35,7 @@ nav a {
 }
 
 .btn {
-    background-color: #333;
+    background-color: #C4122F;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -65,7 +65,7 @@ input[type="email"], select {
 input[type="submit"],
 input[type="button"],
 button {
-  background-color: #4CAF50;
+  background-color: #C4122F !important;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -80,14 +80,14 @@ button {
 
 input[type="submit"]:hover,
 input[type="button"]:hover{
-  background-color: #45a049;
+  background-color: #770014;
 }
 
 
 /* Фокусировка инпутов */
 input:focus {
     outline: none;
-    border-color: #2196F3;
+    border-color: #C4122F;
     box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
   }
 
@@ -97,7 +97,7 @@ input:focus {
     position: absolute;
     right: 0;
     top: 0;
-    background-color: #4CAF50;
+    background-color: #C4122F;
     color: white;
     padding: 10px 20px;
     border: none;

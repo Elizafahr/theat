@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Театр оперетты</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
+
 
 <body>
     <header>
@@ -20,23 +22,25 @@
                     <li><a href="{{ route('afisha') }}">Афиша</a></li>
                     <li><a href="{{ route('theatres') }}">Театры</a></li>
                     {{-- <li><a href="{{ route('contact') }}">Контакты</a></li> --}}
-                 </ul>
+                </ul>
 
             </nav>
 
 
-            <div class="auth-menu">
+            <div class="auth-menu  "  style="display: flex; flex-direction: column; justify-content: center; align-items: " >
                 @if (Auth::check())
-                <a href="{{ route('profile.show', ['id' => auth()->id()]) }}">Профиль</a>
+                    <a href="{{ route('profile.show', ['id' => auth()->id()]) }}">Профиль</a>
 
 
-                     <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit">Выйти</button>
+                        <button class="  btn" style="  background-color: #C4122F; " type="submit">Выйти</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}">Войти</a>
-                    <a href="{{ route('register') }}">Регистрация</a>
+                   <div class="">
+                    <a class="  btn" href="{{ route('login') }}">Войти</a>
+                    <a class="  btn" href="{{ route('register') }}">Регистрация</a>
+                   </div>
                 @endif
             </div>
 

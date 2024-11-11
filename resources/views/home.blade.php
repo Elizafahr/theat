@@ -52,7 +52,7 @@
                                              <p><span>{{ $event->theatre->address }}</span></p>
                                          </div>
                                      </div>
-                                     <a href="{{ route('event.show', $event->id) }}" class="btn">Подробнее</a>
+                                     <a href="{{ route('event.show', $event->id) }}" class="btn" style="color: white">Подробнее</a>
                                  </div>
                                  {{-- <div class="col-md-6 bg-image">
                                     <img src="{{ asset('/Rectangle 15.png') }}" alt="Изображение мероприятия">
@@ -63,11 +63,11 @@
                      </div>
                  @endforeach
              </div>
-             <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+             <button class="carousel-control-prev" style="background-color: transparent" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                  <span class="visually-hidden">Previous</span>
              </button>
-             <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+             <button  style="background-color: transparent"  class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
                  <span class="visually-hidden">Next</span>
              </button>
@@ -78,10 +78,10 @@
              <div class="flex j-btw">
                  <h3>РЕКОМЕНДУЕМ</h3>
                  <div class="navigation">
-                     <button id="recomendation-arrow-left" class="arrow left">
+                     <button id="recomendation-arrow-left" style="background-color: transparent"  class="arrow left" sty>
                          <img src="{{ asset('arrow-left.svg') }}" alt="">
                      </button>
-                     <button class="arrow right" id="recomendation-arrow-right">
+                     <button class="arrow right" style="background-color: transparent" id="recomendation-arrow-right">
                          <img src="{{ asset('arrow-right.svg') }}" alt="">
                      </button>
                  </div>

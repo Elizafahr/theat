@@ -38,10 +38,10 @@
         <div class="flex j-btw">
             <h2>Ближайшие мероприятия</h2>
             <div class="navigation">
-                <button id="recomendation-arrow-left" class="arrow left">
+                <button id="recomendation-arrow-left" class="arrow left" style="background-color: transparent" >
                     <img src="{{ asset('arrow-left.svg') }}" alt="">
                 </button>
-                <button class="arrow right" id="recomendation-arrow-right">
+                <button class="arrow right" id="recomendation-arrow-right" style="background-color: transparent" >
                     <img src="{{ asset('arrow-right.svg') }}" alt="">
                 </button>
             </div>
